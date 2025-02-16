@@ -5,6 +5,7 @@ Data/*.doc
 Data/*.docx
 Models
 .env
+venv
 PlayGround.py
 abm-automation-1b460-firebase-adminsdk-8nvo6-9806782ed2.json
 SentenceTransformer.py
