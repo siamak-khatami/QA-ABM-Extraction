@@ -1,0 +1,116 @@
+Income vs. Demand: Exploring Dynamics of Poverty Lines using Agent-based Modeling
+
+Siamak Khatami1[0000−0003−4512−2661]
+Christopher Frantz2[0000−0002−6105−8738]
+
+The attention to agent-based modeling as a complementary technique to statistical evaluation lies in its ability to provide insight into the fundamental processes that bring about macro-level outcomes studied using empirical data.
+More specifically, the idea is to explore the central causal linkages that may be uniform (or variably differ) for specific countries in determining their stage of economic development and associated poverty levels.
+Turning to our specific study, we aim to use an ABM to complement the established statistical model of poverty with a complex model that leverages opportunities to explore causal linkages statistical models are poorly geared to offer.
+As previously stated, this research aims to determine the correlation between income and the price of a basket of goods (presented as the demand level of agents), which serves as an indicator of the Poverty Lines (PL) in a given country.
+This requires the consideration of a market, reflecting both demand- and supply-side behavior and its influence on market prices.
+In this case, the specific characteristics of a country are central parameters to determine the overall outcome.
+Modeling markets at large implies the consideration of numerous subsystems (such as the labor market, state influence, foreign investment, capital flow, etc.).
+However, as a starting point for this model – replicating observed outcomes in the statistical model – the initial emphasis lies on understanding the demandside behavior of individuals in a society, with the initial assumptions of limitless supply and a fixed price point.
+Such a scenario can approximate conditions found in open economies within periods of economic stability in which price levels are constant.
+To simplify the simulation process, only one product, referred to as the basket of goods, is included instead of all the individual items.
+When the income level changes, households will react to the basket’s value, which includes both the quantity and quality aspects.
+Figure 1 shows a causal system diagram that reflects the demand side of the modeled economy and serves as the basis for developing the agent-based model.
+Agents are households, given the compatible aggregation unit with empirically reported data.
+In practice, this reflects the everyday purchasing decisions that shape aggregate economic demand.
+Reflecting the principal operation, each agent (called ’Household’) is assigned an income level, which is determined by a function that calculates a mean point representing the GDP per Capita (re-scaled with factor 0.001).
+The income level is distributed using a standard deviation following the Gaussian distribution with a mean derived from the income function output (Figure 2 and Table 2).
+This process occurs at every tick (per year) for each agent.
+Given the absence of a complete market model at this stage, the simulation model relies on an external income function which emulates the market behavior.
+To capture stereotypical forms of income growth in different economics/stages of economic development, we rely on three function types, namely Linear (Equation 1), Logarithmic (Equation 2), and Exponential (Equation 3), representing different growth scenarios.
+To proxy the abstracted market behavior under controlled conditions reflecting the respective economies’ conditions, the stylized income functions are parameterized by assuming a value range between 0 and 200 (given the assumed default demand level of 50 (Table 2)), allowing simulation models to reach income levels of 200 at step 100.
+For the purpose of systematic exploration, these are modeled symmetrically (relative to the linear income function), an aspect that was established using a python package called Copatrec [18], which can be used for nonlinear model selection purposes using any data types including lookup tables (shown in Figure 2).
+The function coefficients for the corresponding income function are shown below.
+For the operationalization of the income function, we rely on an additional parameter referred to as growth direction (Table 3).
+This parameter determines the time step at which the direction of income growth is inverted, emulating the presence of economic shocks (i.e., a point in time at which income decreases).
+In this model, the income_mean can be parameterized in the range of 0-200.
+Combined with the growth direction, this can accommodate a wide range of income scenarios, reflecting stereotypical macroeconomic scenarios.
+The linear function – as a baseline scenario – reflects a linear progression of income over time, with ‘a‘ being the slope of the function representing the growth rate.
+Fig.2: Three income functions (Linear, Exponential, and Logarithmic).
+In the model code, at each step, the derivative of these functions has been used to update the ’incomeMean’ growth.
+The logarithmic income function shown in Equation 2, in contrast, represents economic developments of rapid growth initially that slows down over time, hence allowing households to satisfy demands swiftly during the initial levels in a short time frame (for progressions below 10 ticks, the relation between demand levels and income levels are essentially exponential), before entering a stabilizing phase in economic development.
+The exponential income function (see 3) showcases a smoothed initial growth; even though it has the name of exponential growth, but the growth part is activated smoother compared to the logarithmic function.
+This function represents economic conditions found in stable economies, but with an event that activates and rapidly progressing growth (such as newly identified natural resources, and industrialization), leading to different demand-side behavior due to the high level of demand satisfaction present in the society prior to the growth event.
+For all income function types, the parameters for the corresponding function are noted in Table 3 (income_growth).
+To generate income functions, a package called Copatrec [18] is hired, which suggests mathematical models (linear and nonlinear) based on the given data.
+To generate these equations, a hypothetical lookup table is used as input.
+Returning to the agent model, each agent has a preferred level of demand (50) that they aim to meet.
+This desired demand (Table 2) is based on the value of the basket of goods (PL) and is considered a constant parameter since it is assumed that there is an unlimited supply and constant price in the market (Table 2).
+To determine the demand level based on income and desired demand, the difference between both is referred to as the demand gap.
+We use this to calculate a tendency toward increasing or lowering demand at each step.
+The tendency toward demand (demand inflow) is based on the minimum value between the disposable income (the remaining income after allocating to the current demand level) and the current gap.
+The agent spends money until its demand level is met and then starts to save any income in excess of its (satisfied) demand.
+The model recognizes two types of savings: regular savings (for instance, in the form of equity) and essential investment savings (IS).
+Essential investment savings refer to goods that the agent may choose to save for instead of purchasing in the market, as they will cover part of their current demand and also provide long-term savings.
+A typical example of such goods is houses (via the pay-off of which is the presumed longterm reduction in rent payments (reduction of immediate demands), alongside the capital value bound in the investment).
+The operational difference between both forms of saving is that for essential investment goods (EIG) savings, the equivalent costs presenting in their desired demand are updated in each round and with increasing satisfaction of demand, resulting in an adjusted (lowered) future demand.
+For regular savings, in contrast, the savings will continuously increase for income values above the desired demand level, unless income declines over time and can no longer satisfy the demand.
+Following the market development (i.e., change in income and reaction to adjusted demand – increasing demand in case of falling income, reducing demand in the case of increasing income), the household can decide to either use the saving or even sell the EIG at the current price in the market (which is modelled as the ration between EIG and income, tagged eig_to_income_ratio).
+The entire behavior of households, including initial parameterization, relevant global model parameters, as well as the operational execution cycle, is shown in Algorithm 1.
+Table 1 describes all variables, including auxiliary ones, such as emergency savings, regular savings in accounts, the share of EIG in the basket of goods, and the price of EIG [30,23].
+As previously discussed, with the exception of the income function (depends on time) and the EIG price (depends on the median income level), the supply subsystem and government rely on external processes that are not included in this model (and hence abstracted).
+Both variables are updated at the Model level at the of each tick and made available to Household agents that do not show any other form of direct interaction.
+Table 2 provides details on the parameters and variables operating at the model level.
+To populate the model, we use rescaled GDPPC data (GDPPC/1000) and unscaled PL original data, with GDPPC proxying for income mean and PL for desired demand.
+A sensitivity analysis is performed to investigate how different parameters affect the relationship between income and demand levels reported in Table 3.
+This serves as the basis to parameterize different nations with distinctive configurations of income growth (such as slowly growing nations, fast-growing nations, etc.).
+The initial setup of the model parameters can be found in Table 3.
+Based on the initial parameters, we ran the following different combinations of parameter values (with ranges and step sizes reported in Table 3) over 6800 runs (reflecting all possible parameter combinations), with a maximum number of rounds of 100 steps per simulation, a parameterization that is based on the initial experimental observation that showcased convergence under any condition within this number of steps.
+Reviewing the results of all simulation runs, a set of specific behaviors observed as the results will be highlighted.
+Figure 3 illustrates the different combinations of time-series results for income and demand levels (representing PL) using three different functions.
+Figures 4 showcase selected comparable results for each of the income functions (with four plot sets, each of which consists of two vertically oriented diagrams, with the top one reflecting the mean demand level, and the bottom ones representing the mean income).
+Each simulation is parameterized to show a direction change in income at time step 60.
+Given the differentiated growth rate parameter for linear distributions (unlike the other functions), two versions of the linear function are included (the top left and top right sets), with the initial showcasing of income growth rate equal to 0.5 (low slope) and the second being parameterized with the value 2 (high slope).
+The remaining functions are the logarithmic one (bottom left) and exponential income growth function (bottom right).
+Reviewing the two top left diagrams (Linear function, std = 11 and growth rate = 0.5, which means multiply by 1.5), the income essentially never manages to satisfy the desired demand level.
+Thus, the demand level follows the income.
+This means if the income vs.
+demand level curve is plotted, a positive linear correlation should be observed.
+This can be representative of a nation in which the income levels are low, an aspect that supports the analysis reported in [16].
+The same behavior is observed similarly in the bottom right set of curves in which the income levels grow exponentially; it manages to satisfy the demand level, and retains stability for some time, before decaying.
+However, in this exponential scenario and the other two (top-right and bottom-left) figures, the stability of the demand level after the desired demand is satisfied can not show a positive correlation.
+This means, in these convergence points, the growth of the income level doesn’t affect the demand level any further.
+To demonstrate this, a set of different combinations of income vs. demand levels with different scenarios is plotted in Figure 4.
+Observing the combined output in Figure 4, considering each run representative of a stylized economy (i.e., country), across all instances, we can observe an S-shape behavior for which the demand levels are growing to a point (with different initial performance) corresponding to their gap and income levels.
+To investigate the distinctive patterns in greater detail, a selected subset of series are plotted in Figure 5.
+For some scenarios with lower income levels (e.g., ID 365), a positive correlation can be observed.
+However, this does not imply a different pattern compared to other scenarios but rather points to the fact that this scenario never experienced the economic conditions of the fully developed cases (i.e., ID 2606).
+If so, this scenario would likewise showcase the identified S-shape behavior found in other countries.
+This is likewise valid for other cases that are in the early developing phase (i.e., ID 401) and approximate the desired demand level but retain a positive relation.
+In short, looking at the scenarios at large, the developmental trajectory for any country follows an S-shape behavior in the ideal case, but subject to the current stage of economic development (proxied via income level), only specific stages can be recreated in the simulation setting – an aspect that is best reflected when comparing the generated outcomes to empirical data, both to establish a sense of the ability of the model to recreate real patterns, but also to substantiate the observed simulation outcomes by comparing specific scenarios.
+To afford the validation, we draw on the GDPPC [4] and poverty lines (PL) [5] data referenced earlier.
+While GDPPC data is based on 2015 values, the employed PLs are adjusted based on 2017 PPP values which are based on either consumption or income surveys at the national level for the included.
+For the sake of facilitating the alignment with the cases observed in the simulation output, the empirical data have been clustered using k-means [20] with parameter k set to 4, given that the observed S-shape behavior can have four different sections (based on the respective derivates), ranging from exponential growth to transition to linear growth, and toward convergence.
+The results of this clustered empirical is shown in Figure 6.
+Recalling the developing economy labeled ID 365 in 5 as part of the simulation outcomes, and comparing it to real-world economies (identified in red color in Figure 6), we can observe aligned patterns that reflect correspondence of actual low-income economies.
+On the other hand, other clusters of countries, such as the second, green cluster in Figure 6 is representative of scenarios similar to ID 401 in the simulation run (Figure 5), which are reflecting economies that entered a development phase.
+The purple cluster in Figure 6 aligns with observations captured as IDs 2606, 446, and 1526 in the simulation runs.
+Here, they reflect economies that are moving toward convergence based on the inherent demand satisfaction.
+To support the analysis in terms of real-world data, the names of actual countries and their relevant data points are provided in Figure 7 (Appendix A.1).
+In this work, we took an initial step toward affording a more accurate reflection of macro-economic outcomes with respect to economic growth and associated household-level income, with the intent to showcase the interaction between economic development and demand-side behavior, driven by the original intent to grow the variable economic constellations that real-world countries operate in, and that represent the environmental conditions that foster, or variably reduced poverty.
+To this end, we initially introduced existing work in the area of political economy, before turning to agent-based modeling as a technique to reconstruct the outcomes observed in empirical data.
+Building on stylized income functions and a simplified market model (with a demand-side focus), we were able to replicate specific economic scenarios.
+Integrating the results enabled the identification of real-world patterns, suggesting that this initial model is able to provide a starting point for further refinement in order to better capture the complexity that makes macro-economic conditions come about, and serve as an explanatory tool or basis to explore alternative hypotheses.
+Turning to the overall outcomes, we noted that a distinct S-shaped pattern emerged, which could only be captured by integrating the distinctive scenarios (based on specific income functions).
+The general pattern, however, appears stable: as income levels increase to a certain point (i.e., a state in which the vast majority of individuals earn an income that meets or exceeds the desired demand), consumption stabilizes in line with the desired demand.
+This scenario mirrors empirical data of impoverished countries that have since experienced growth and achieved stability over time.
+However, such countries are few, and, given issues related to data quality and completeness makes conclusive analyses challenging.
+What we can learn, however, is that during the initial stages of growth, nations may experience significant fluctuations in demand levels due to high consumption and inflation.
+Yet, once the nation begins to address its consumption habits, prices stabilize, and inflation rates decrease.
+This pattern aligns with studies that aim to understand the Marginal Propensity to Consume (MPC) [1].
+Although the S-shape is a common pattern, it may not always be observed in all scenarios.
+However, this does not necessarily indicate a different relationship.
+One such case is when a nation is unable to meet the demand levels, resulting in only the growing part of the S-shape being observed.
+Depending on income growth rates, this could manifest as either linear or exponential growth.
+Another scenario not captured with this approach is based on an immediate change in income levels based on exogenous shocks in which a bell shape behavior (one positive and one negative S-shape).
+Returning to the main research question, even though it is indicated that the increase in income levels can cause an increase in price levels, inflation, and thus the poverty line, it should be asked and indicated exactly in which scenario and under which circumstances, an aspect the results of the simulation illustrate (and which is supported by empirical data).
+Even though there is a positive relation between income levels and demand levels (representing poverty lines) in poor countries, poverty conditions may already be controlled and satisfied when incomes reach above the desired demand and are satisfied.
+This highlights the immediate need to consider policies as an important mediating factor (e.g., social policy related to welfare, market regulation with direct or indirect impact on price levels) to establish a clear assessment of poverty, and providing the basis for an informed investigation.
+The work presented focuses on the demand sub-system of the market, which appears to be relevant to reproduce the behavior of interest.
+However, to capture a more complete representation of economic activity further improvements are needed.
+Those include the integration of the supply sub-systems and exploring scenarios of economic openness (e.g., domestic production, importing that enables the mechanism of market pricing following market balance and would be the result of agents’ communication).
+However, even at this stage, the developed model offers a starting point to develop a better understanding of the conditions that mitigate economic growth, and, by implication, poverty.
