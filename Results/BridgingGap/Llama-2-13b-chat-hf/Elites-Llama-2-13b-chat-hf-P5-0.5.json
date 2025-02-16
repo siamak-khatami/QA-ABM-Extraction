@@ -1,0 +1,12 @@
+{
+    "0": "   Here is the extracted information in JSON format:{\"Space\": {\"short_description\": \"Three different types of agents\",\"type\": \"heterogeneous\"}}  ",
+    "1": "   Here is the JSON object containing the information about the ABM simulation space:{\"Space\": {\"short_description\": \"Three different types of agents with their own set of parameters\",\"type\": \"heterogeneous\"}}  ",
+    "2": "   Here is the extracted information in JSON format:{\"Space\": {\"short_description\": \"Three different types of agents\",\"type\": \"heterogeneous\"}}  ",
+    "3": "   Here is the JSON object containing the required information about the ABM simulation space:{\"Space\": {\"short_description\": \"Three different types of agents with their own set of parameters\",\"type\": \"heterogeneous\"}}  ",
+    "4": "   Here is the extracted information in JSON format:{'Space': {'short_description': 'Three different types of agents', 'type': 'heterogeneous'}}  ",
+    "5": "   Here is the JSON object with the required information:{\"Space\": {\"short_description\": \"Three different types of agents with their own set of parameters\",\"type\": \"Large Computer Simulations\"}}  ",
+    "6": "   Here is the JSON object containing the required information about the ABM simulation space:{\"Space\": {\"short_description\": \"Three different types of agents with their own set of parameters\",\"type\": \"heterogeneous\"}}  ",
+    "7": "   Here is the JSON object containing the required information about the ABM simulation space:{  \"Space\": {  \"short_description\": \"Three different types of agents with their own set of parameters\", \"type\": \"heterogeneous\" }  }  ",
+    "8": "   Here is the JSON object with the required information:{\"Space\": {\"short_description\": \"Three different types of agents with their own set of parameters\",\"type\": \"heterogeneous\"}}  ",
+    "9": "   Here is the JSON object containing the required information about the ABM simulation space:{  \"Space\": {  \"short_description\": \"Three different types of agents with their own set of parameters\", \"type\": \"heterogeneous\" }  }  "
+}

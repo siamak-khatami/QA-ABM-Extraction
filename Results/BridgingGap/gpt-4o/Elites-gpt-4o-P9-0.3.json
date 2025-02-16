@@ -1,0 +1,12 @@
+{
+    "0": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"200-time steps\"\n    }\n  }\n}\n```",
+    "1": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"Each simulation was run for 200-time steps\"\n    }\n  }\n}\n```",
+    "2": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"Each simulation was run for 200-time steps\u30104:3\u2020elites.pdf\u3011\"\n    }\n  }\n}\n```",
+    "3": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": null\n    }\n  }\n}\n```",
+    "4": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"Each simulation was run for 200-time steps\"\n    }\n  }\n}\n```",
+    "5": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": \"Not explicitly provided in the document\",\n      \"order_number\": \"Not explicitly provided in the document\",\n      \"frequency\": \"Not explicitly provided in the document\"\n    }\n  }\n}\n```",
+    "6": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"200-time steps\"\n    }\n  }\n}\n```",
+    "7": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"200-time steps\"\n    }\n  }\n}\n```",
+    "8": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"200-time steps\"\n    }\n  }\n}\n```",
+    "9": "```json\n{\n  \"Model-Level\": {\n    \"percent-elites\": {\n      \"value_boundaries\": \"[0, 2]\",\n      \"equation\": null,\n      \"order_number\": null,\n      \"frequency\": \"200-time steps\"\n    }\n  }\n}\n```"
+}
