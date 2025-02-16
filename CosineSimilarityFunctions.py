@@ -142,7 +142,7 @@ def load_model(model_name):
         bnb_4bit_compute_dtype=bfloat16
     )
     # begin initializing HF items, you need an access token
-    hf_auth = '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'
+    hf_auth = config["HuggingFaceToken"]
     model_config = transformers.AutoConfig.from_pretrained(
         model_name,
         token=hf_auth
